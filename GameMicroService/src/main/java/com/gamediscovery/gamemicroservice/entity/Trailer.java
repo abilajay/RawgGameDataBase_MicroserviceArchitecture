@@ -1,0 +1,23 @@
+package com.gamediscovery.gamemicroservice.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+public class Trailer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String preview;
+    private String res_480;
+    private String full;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Game game;
+}
