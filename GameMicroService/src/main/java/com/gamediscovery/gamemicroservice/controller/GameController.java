@@ -8,12 +8,10 @@ import com.gamediscovery.gamemicroservice.service.GameService;
 import com.gamediscovery.gamemicroservice.service.ScreenshotService;
 import com.gamediscovery.gamemicroservice.service.TrailerService;
 import com.gamediscovery.gamemicroservice.utils.AppConstants;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -87,6 +85,26 @@ public class GameController {
                                                           @RequestParam(name = "order", defaultValue = AppConstants.DEFAULT_ORDER, required = false) String order){
         return new ResponseEntity<>(gameService.getGamesByGenreName(genreName, pageNo, pageSize, sortBy, order), HttpStatus.OK);
     }
+
+    @GetMapping(params = "publisherId")
+    public ResponseEntity<GamesResponse> fetchGamesByPublisherId(@RequestParam(name = "publisherId") Long publisherId,
+                                                             @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NO, required = false) int pageNo,
+                                                             @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+                                                             @RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+                                                             @RequestParam(name = "order", defaultValue = AppConstants.DEFAULT_ORDER, required = false) String order){
+        return new ResponseEntity<>(gameService.getGamesByPublisherId(publisherId, pageNo, pageSize, sortBy, order), HttpStatus.OK);
+    }
+
+    @GetMapping(params = "publisherName")
+    public ResponseEntity<GamesResponse> fetchGamesByPublisherName(@RequestParam(name = "publisherName") String publisherName,
+                                                                 @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NO, required = false) int pageNo,
+                                                                 @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+                                                                 @RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+                                                                 @RequestParam(name = "order", defaultValue = AppConstants.DEFAULT_ORDER, required = false) String order){
+        return new ResponseEntity<>(gameService.getGamesByPublisherName(publisherName, pageNo, pageSize, sortBy, order), HttpStatus.OK);
+    }
+
+
 
 
 }

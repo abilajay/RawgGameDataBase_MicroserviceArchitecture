@@ -46,7 +46,6 @@ public class Game implements Serializable {
 
     private Long publisherId;
 
-//    @ElementCollection(targetClass = Platform.class)
     @Transient
     private List<Platform> platforms;
 

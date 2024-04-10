@@ -3,7 +3,6 @@ package com.gamediscovery.gamemicroservice.service;
 import com.gamediscovery.gamemicroservice.dto.GamesResponse;
 import com.gamediscovery.gamemicroservice.entity.Game;
 
-import java.util.List;
 
 public interface GameService {
     Game fetchGameById(Long gameId);
@@ -20,7 +19,8 @@ public interface GameService {
 
     GamesResponse getGamesByGenreName(String genreName, int pageNo, int pageSize, String sortBy, String order);
 
-    Long getGamesCountByGenreId(Long genreId);
 
+    GamesResponse getGamesByPublisherId(Long publisherId, int pageNo, int pageSize, String sortBy, String order);
 
+    GamesResponse getGamesByPublisherName(String publisherName, int pageNo, int pageSize, String sortBy, String order);
 }
