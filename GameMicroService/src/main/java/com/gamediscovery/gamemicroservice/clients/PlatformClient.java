@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "platform-microservice", url = "localhost:8083")
+@FeignClient(name = "Platform-Microservice")
 public interface PlatformClient {
     @GetMapping("/platforms")
     List<Platform> createMultiplePlatform(@RequestBody List<Platform> platforms);

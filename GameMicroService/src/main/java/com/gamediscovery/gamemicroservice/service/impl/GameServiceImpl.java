@@ -13,7 +13,6 @@ import com.gamediscovery.gamemicroservice.exception.GameNotFoundException;
 import com.gamediscovery.gamemicroservice.external.Genre;
 import com.gamediscovery.gamemicroservice.external.Platform;
 import com.gamediscovery.gamemicroservice.repository.GameRepository;
-import com.gamediscovery.gamemicroservice.repository.ScreenshotRepository;
 import com.gamediscovery.gamemicroservice.service.GameService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,29 +46,23 @@ public class GameServiceImpl implements GameService {
     @Override
     public Game fetchGameById(Long gameId) {
         Optional<Game> optionalGame = gameRepository.findById(gameId);
-        return optionalGame.orElseThrow(() -> new GameNotFoundException(gameId));
+        Game game = optionalGame.orElseThrow(() -> new GameNotFoundException(gameId));
+        List<GamePlatform> gamePlatforms =gamePlatformClient.fetchRecordByGameId(game.getId());
+        List<Platform> platforms = gamePlatforms.stream().map((gp) -> platformClient.getPlatformById(gp.getPlatformId())).toList();
+        game.setPlatforms(platforms);
+        return game;
     }
 
     @Override
     public GamesResponse fetchAllGames(int pageNo, int pageSize, String sortBy, String order) {
         PageRequest pageable = createPageRequest(pageNo, pageSize, sortBy, order);
         Page<Game> gamePage = gameRepository.findAll(pageable);
-        List<Game> gameList = new ArrayList<>();
-        for (Game game: gamePage.getContent()) {
-            List<Long> platformIds = gamePlatformClient.fetchRecordByGameId(game.getId()).stream().map(GamePlatform::getPlatformId).toList();
-            List<Platform> platforms = new ArrayList<>();
-            for (Long platformId: platformIds) {
-                platforms.add(platformClient.getPlatformById(platformId));
-            }
-            game.setPlatforms(platforms);
-            gameList.add(game);
-        }
+        List<Game> gameList = fetchPlatformsByGames(gamePage);
         GamesResponse gamesResponse = new GamesResponse();
         gamesResponse.setGames(gameList);
         gamesResponse.setGameCount(gameRepository.count());
         return gamesResponse;
     }
-
 
 
     @Override
@@ -166,8 +159,9 @@ public class GameServiceImpl implements GameService {
     public GamesResponse getGamesByGenreId(Long genreId, int pageNo, int pageSize, String sortBy, String order) {
         PageRequest pageable = createPageRequest(pageNo, pageSize, sortBy, order);
         Page<Game> gamePage = gameRepository.findByGenreId(genreId, pageable);
+        List<Game> gameList = fetchPlatformsByGames(gamePage);
         GamesResponse gamesResponse = new GamesResponse();
-        gamesResponse.setGames(gamePage.getContent());
+        gamesResponse.setGames(gameList);
         gamesResponse.setGameCount(gameRepository.countByGenreId(genreId));
         return gamesResponse;
     }
@@ -178,8 +172,9 @@ public class GameServiceImpl implements GameService {
         Long genreId = genre.getId();
         PageRequest pageable = createPageRequest(pageNo, pageSize, sortBy, order);
         Page<Game> gamePage = gameRepository.findByGenreId(genreId, pageable);
+        List<Game> gameList = fetchPlatformsByGames(gamePage);
         GamesResponse gamesResponse = new GamesResponse();
-        gamesResponse.setGames(gamePage.getContent());
+        gamesResponse.setGames(gameList);
         gamesResponse.setGameCount(gameRepository.countByGenreId(genreId));
         return gamesResponse;
     }
@@ -188,8 +183,9 @@ public class GameServiceImpl implements GameService {
     public GamesResponse getGamesByPublisherId(Long publisherId, int pageNo, int pageSize, String sortBy, String order){
         PageRequest pageable = createPageRequest(pageNo, pageSize, sortBy, order);
         Page<Game> gamePage = gameRepository.findByPublisherId(publisherId, pageable);
+        List<Game> gameList = fetchPlatformsByGames(gamePage);
         GamesResponse gamesResponse = new GamesResponse();
-        gamesResponse.setGames(gamePage.getContent());
+        gamesResponse.setGames(gameList);
         gamesResponse.setGameCount(gameRepository.countByPublisherId(publisherId));
         return gamesResponse;
     }
@@ -199,10 +195,26 @@ public class GameServiceImpl implements GameService {
         Long publisherId = publisherClient.getPublisherByName(publisherName).getId();
         PageRequest pageable = createPageRequest(pageNo, pageSize, sortBy, order);
         Page<Game> gamePage = gameRepository.findByPublisherId(publisherId, pageable);
+        List<Game> gameList = fetchPlatformsByGames(gamePage);
         GamesResponse gamesResponse = new GamesResponse();
-        gamesResponse.setGames(gamePage.getContent());
+        gamesResponse.setGames(gameList);
         gamesResponse.setGameCount(gameRepository.countByPublisherId(publisherId));
         return gamesResponse;
+    }
+
+
+    public List<Game> fetchPlatformsByGames(Page<Game> gamePage){
+        List<Game> gameList = new ArrayList<>();
+        for (Game game: gamePage.getContent()) {
+            List<Long> platformIds = gamePlatformClient.fetchRecordByGameId(game.getId()).stream().map(GamePlatform::getPlatformId).toList();
+            List<Platform> platforms = new ArrayList<>();
+            for (Long platformId: platformIds) {
+                platforms.add(platformClient.getPlatformById(platformId));
+            }
+            game.setPlatforms(platforms);
+            gameList.add(game);
+        }
+        return gameList;
     }
 
     private PageRequest createPageRequest(int pageNo, int pageSize, String sortBy, String order) {

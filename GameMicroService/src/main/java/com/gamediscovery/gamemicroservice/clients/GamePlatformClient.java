@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "game-platform", url = "localhost:8082")
+@FeignClient(name = "GamePlatform-Microservice")
 public interface GamePlatformClient {
 
     @PostMapping("/game-platform")

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "publisher-microservice", url = "localhost:8084")
+@FeignClient(name = "Publisher-Microservice")
 public interface PublisherClient {
 
     @GetMapping(value = "/publishers/{publisherId}")
