@@ -6,10 +6,8 @@ import com.gamediscovery.Platform.repository.PlatformRepository;
 import com.gamediscovery.Platform.service.PlatformService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +42,12 @@ public class PlatformServiceImpl implements PlatformService {
                 .map(pt -> platformRepository.findByName(pt.getName())
                         .orElseGet(() -> platformRepository.save(pt)))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Platform getPlatformByName(String platformName) {
+        Optional<Platform> optionalPlatform = platformRepository.findByName(platformName);
+        return optionalPlatform.orElseThrow(() -> new PlatformNotFoundException(platformName));
     }
 
 

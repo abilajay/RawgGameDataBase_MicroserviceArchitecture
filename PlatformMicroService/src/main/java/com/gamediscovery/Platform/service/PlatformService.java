@@ -13,4 +13,5 @@ public interface PlatformService {
 
     List<Platform> createMultiplePlatforms(List<Platform> platforms);
 
+    Platform getPlatformByName(String platformName);
 }

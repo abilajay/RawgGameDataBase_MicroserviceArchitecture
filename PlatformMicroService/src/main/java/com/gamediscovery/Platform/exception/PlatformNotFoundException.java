@@ -8,4 +8,8 @@ public class PlatformNotFoundException extends RuntimeException{
     public PlatformNotFoundException(Long platformId) {
         super("Platform not found with id:"+platformId);
     }
+
+    public PlatformNotFoundException(String platformName) {
+        super("Platform not found with id:"+platformName);
+    }
 }

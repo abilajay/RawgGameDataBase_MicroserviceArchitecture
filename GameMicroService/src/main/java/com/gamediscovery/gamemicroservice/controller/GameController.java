@@ -104,6 +104,26 @@ public class GameController {
         return new ResponseEntity<>(gameService.getGamesByPublisherName(publisherName, pageNo, pageSize, sortBy, order), HttpStatus.OK);
     }
 
+    @GetMapping(params = "platformName")
+    public ResponseEntity<GamesResponse> fetchGamesByPlatformIdentifier(@RequestParam(name = "platformName") String platformName,
+                                                                   @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NO, required = false) int pageNo,
+                                                                   @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+                                                                   @RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+                                                                   @RequestParam(name = "order", defaultValue = AppConstants.DEFAULT_ORDER, required = false) String order){
+        return new ResponseEntity<>(gameService.getGamesByPlatformIdentifier(platformName, pageNo, pageSize, sortBy, order), HttpStatus.OK);
+    }
+
+    @GetMapping(params = "platformId")
+    public ResponseEntity<GamesResponse> fetchGamesByPlatformIdentifier(@RequestParam(name = "platformId") Long platformId,
+                                                                        @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NO, required = false) int pageNo,
+                                                                        @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+                                                                        @RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+                                                                        @RequestParam(name = "order", defaultValue = AppConstants.DEFAULT_ORDER, required = false) String order){
+        return new ResponseEntity<>(gameService.getGamesByPlatformIdentifier(platformId, pageNo, pageSize, sortBy, order), HttpStatus.OK);
+    }
+
+
+
 
 
 

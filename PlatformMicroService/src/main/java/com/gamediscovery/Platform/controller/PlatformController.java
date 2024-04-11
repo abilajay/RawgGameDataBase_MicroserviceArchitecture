@@ -24,7 +24,7 @@ public class PlatformController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Platform> getAllPlatform(@PathVariable(name = "id") Long platformId){
+    public ResponseEntity<Platform> getPlatformById(@PathVariable(name = "id") Long platformId){
         return new ResponseEntity<>(platformService.getPlatformById(platformId), HttpStatus.OK);
     }
 
@@ -38,7 +38,10 @@ public class PlatformController {
         return new ResponseEntity<>(platformService.createPlatform(platform), HttpStatus.CREATED);
     }
 
-
+    @GetMapping(params = "platformName")
+    public ResponseEntity<Platform> getPlatformByName(@RequestParam String platformName){
+        return new ResponseEntity<>(platformService.getPlatformByName(platformName), HttpStatus.OK);
+    }
 
 
 

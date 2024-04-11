@@ -17,4 +17,7 @@ public interface GamePlatformClient {
 
     @GetMapping("/game-platform")
     List<GamePlatform> fetchRecordByGameId(@RequestParam Long gameId);
+
+    @GetMapping("/game-platform")
+    List<GamePlatform> fetchRecordByPlatformId(@RequestParam Long platformId);
 }

@@ -23,4 +23,8 @@ public interface GameService {
     GamesResponse getGamesByPublisherId(Long publisherId, int pageNo, int pageSize, String sortBy, String order);
 
     GamesResponse getGamesByPublisherName(String publisherName, int pageNo, int pageSize, String sortBy, String order);
+
+    GamesResponse getGamesByPlatformIdentifier(Long platformId, int pageNo, int pageSize, String sortBy, String order);
+
+    GamesResponse getGamesByPlatformIdentifier(String platformName, int pageNo, int pageSize, String sortBy, String order);
 }
