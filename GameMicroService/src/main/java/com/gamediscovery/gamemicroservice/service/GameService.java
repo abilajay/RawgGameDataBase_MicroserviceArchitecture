@@ -7,6 +7,8 @@ import com.gamediscovery.gamemicroservice.entity.Game;
 public interface GameService {
     Game fetchGameById(Long gameId);
 
+    Game fetchGameByUniqueId(Long uniqueId);
+
     GamesResponse fetchAllGames(int pageNo, int pageSize, String sortBy, String order);
 
     Game createGame(Game game);

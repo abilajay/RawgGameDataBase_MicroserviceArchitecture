@@ -9,9 +9,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="GameMicroService" />
         <module name="EurekaServer" />
+        <module name="GenreMicroService" />
+        <module name="Gateway" />
         <module name="PlatformMicroService" />
         <module name="Game_Platform" />
-        <module name="GenreMicroService" />
         <module name="PublisherMicroService" />
       </profile>
     </annotationProcessing>
@@ -21,6 +22,7 @@
       <module name="EurekaServer" options="-parameters" />
       <module name="GameMicroService" options="-parameters" />
       <module name="Game_Platform" options="-parameters" />
+      <module name="Gateway" options="-parameters" />
       <module name="GenreMicroService" options="-parameters" />
       <module name="PlatformMicroService" options="-parameters" />
       <module name="PublisherMicroService" options="-parameters" />

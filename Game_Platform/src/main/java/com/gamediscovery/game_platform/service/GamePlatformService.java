@@ -12,4 +12,5 @@ public interface GamePlatformService {
     List<GamePlatform> fetchGamesIdByPlatformId(Long platformId);
 
     void deleteRecordByGameId(Long gameId);
+
 }

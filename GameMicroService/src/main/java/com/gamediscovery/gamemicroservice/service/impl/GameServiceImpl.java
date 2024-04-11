@@ -54,6 +54,16 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public Game fetchGameByUniqueId(Long uniqueId) {
+        Optional<Game> optionalGame = gameRepository.findByUniqueId(uniqueId);
+        Game game = optionalGame.orElseThrow(GameNotFoundException::new);
+        List<GamePlatform> gamePlatforms =gamePlatformClient.fetchRecordByGameId(game.getId());
+        List<Platform> platforms = gamePlatforms.stream().map((gp) -> platformClient.getPlatformById(gp.getPlatformId())).toList();
+        game.setPlatforms(platforms);
+        return game;
+    }
+
+    @Override
     public GamesResponse fetchAllGames(int pageNo, int pageSize, String sortBy, String order) {
         PageRequest pageable = createPageRequest(pageNo, pageSize, sortBy, order);
         Page<Game> gamePage = gameRepository.findAll(pageable);
