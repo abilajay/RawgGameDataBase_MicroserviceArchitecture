@@ -10,7 +10,11 @@ public interface PublisherService {
 
     PublisherResponse getPublisherById(Long publisherId);
 
-    Publisher getPublisherByName(String publisherName);
+    PublisherResponse getPublisherByName(String publisherName);
 
     List<PublisherResponse> getListOfPublishers();
+
+    Publisher getPublisherByIdForGame(Long publisherId);
+
+    Publisher getPublisherByNameForGame(String publisherName);
 }

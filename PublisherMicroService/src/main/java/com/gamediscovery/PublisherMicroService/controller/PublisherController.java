@@ -29,8 +29,18 @@ public class PublisherController {
         return new ResponseEntity<>(publisherService.getPublisherById(publisherId), HttpStatus.OK);
     }
 
+    @GetMapping("publisher/{id}")
+    public ResponseEntity<Publisher> getPublisherByIdForGame(@PathVariable(name = "id") Long publisherId){
+        return new ResponseEntity<>(publisherService.getPublisherByIdForGame(publisherId), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "publisher", params = "publisherName")
+    public ResponseEntity<Publisher> getPublisherByNameForGame(@RequestParam(name = "publisherName") String publisherName){
+        return new ResponseEntity<>(publisherService.getPublisherByNameForGame(publisherName), HttpStatus.OK);
+    }
+
     @GetMapping(params = "publisherName")
-    public ResponseEntity<Publisher> getPublisherByName(@RequestParam(name = "publisherName") String publisherName){
+    public ResponseEntity<PublisherResponse> getPublisherByName(@RequestParam(name = "publisherName") String publisherName){
         return new ResponseEntity<>(publisherService.getPublisherByName(publisherName), HttpStatus.OK);
     }
 

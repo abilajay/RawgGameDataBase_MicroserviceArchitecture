@@ -9,4 +9,6 @@ public interface GamePlatformRepository extends JpaRepository<GamePlatform, Long
     List<GamePlatform> findByGameId(Long gameId);
 
     List<GamePlatform> findByPlatformId(Long platformId);
+
+    boolean existsByGameIdAndPlatformId(Long gameId, Long platformId);
 }

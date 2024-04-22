@@ -1,19 +1,22 @@
 package com.gamediscovery.gamemicroservice.service;
 
+import com.gamediscovery.gamemicroservice.dto.GameDto;
 import com.gamediscovery.gamemicroservice.dto.GamesResponse;
 import com.gamediscovery.gamemicroservice.entity.Game;
 
 
 public interface GameService {
-    Game fetchGameById(Long gameId);
+    GameDto fetchGameById(Long gameId);
 
     Game fetchGameByUniqueId(Long uniqueId);
 
     GamesResponse fetchAllGames(int pageNo, int pageSize, String sortBy, String order);
 
-    Game createGame(Game game);
+    GameDto createGame(GameDto gameDto);
 
-    Game updateGameById(Long gameId, Game game);
+    GameDto updateGameById(Long gameId, GameDto gameDto);
+
+    void updateGameGenreAndPublisher(GameDto gameDto);
 
     String deleteGameById(Long gameId);
 

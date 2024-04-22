@@ -1,5 +1,6 @@
 package com.gamediscovery.GenreMicroService.controller;
 
+import com.gamediscovery.GenreMicroService.dto.GenreResponse;
 import com.gamediscovery.GenreMicroService.entity.Genre;
 import com.gamediscovery.GenreMicroService.service.GenreService;
 import org.springframework.http.HttpStatus;
@@ -18,18 +19,28 @@ public class GenreController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Genre>> getAllGenre(){
+    public ResponseEntity<List<GenreResponse>> getAllGenre(){
         return new ResponseEntity<>(genreService.getAllGenre(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Genre> getGenreById(@PathVariable Long id){
+    public ResponseEntity<GenreResponse> getGenreById(@PathVariable Long id){
         return new ResponseEntity<>(genreService.getGenreById(id), HttpStatus.OK);
     }
 
     @GetMapping(params = "genreName")
-    public ResponseEntity<Genre> getGenreByName(@RequestParam String genreName){
+    public ResponseEntity<GenreResponse> getGenreByName(@RequestParam String genreName){
         return new ResponseEntity<>(genreService.getGenreByName(genreName), HttpStatus.OK);
+    }
+
+    @GetMapping("/genre/{genreId}")
+    public ResponseEntity<Genre> getGenreByIdForGame(@PathVariable Long genreId){
+        return new ResponseEntity<>(genreService.getGenreByIdForGame(genreId), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/genre", params = "genreName")
+    public ResponseEntity<Genre> getGenreByNameForGame(@RequestParam String genreName){
+        return new ResponseEntity<>(genreService.getGenreByNameForGame(genreName), HttpStatus.OK);
     }
 
     @PostMapping

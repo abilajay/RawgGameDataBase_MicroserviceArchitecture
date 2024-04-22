@@ -15,7 +15,7 @@ public class CustomErrorDecoder implements ErrorDecoder {
             case 400:
                 return new BadRequestException();
             case 404:
-                if(methodKey.contains("getGenreById"))
+                if(methodKey.contains("getGenreById") | methodKey.contains("getGenreByName"))
                     return new GenreNotFoundException();
                 else return new GameNotFoundException();
             default:

@@ -31,6 +31,11 @@ public class GamePlatformImpl implements GamePlatformService {
     }
 
     @Override
+    public boolean exists(Long gameId, Long platformId) {
+        return gamePlatformRepository.existsByGameIdAndPlatformId(gameId, platformId);
+    }
+
+    @Override
     public void deleteRecordByGameId(Long gameId) {
 
     }

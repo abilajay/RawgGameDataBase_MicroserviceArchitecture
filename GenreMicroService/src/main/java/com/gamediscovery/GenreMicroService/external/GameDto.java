@@ -1,5 +1,6 @@
 package com.gamediscovery.GenreMicroService.external;
 
+import com.gamediscovery.GenreMicroService.entity.Genre;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class Game {
+public class GameDto {
 
     private Long id;
 
@@ -31,7 +32,7 @@ public class Game {
 
     private Set<Trailer> trailers;
 
-    private Long genreId;
+    private Genre genre;
 
-    private Long publisherId;
+    private Publisher publisher;
 }

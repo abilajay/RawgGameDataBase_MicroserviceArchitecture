@@ -1,5 +1,6 @@
 package com.gamediscovery.gamemicroservice.controller;
 
+import com.gamediscovery.gamemicroservice.dto.GameDto;
 import com.gamediscovery.gamemicroservice.dto.GamesResponse;
 import com.gamediscovery.gamemicroservice.entity.Game;
 import com.gamediscovery.gamemicroservice.entity.Screenshot;
@@ -39,7 +40,7 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Game> fetchGameById(@PathVariable(name="id") Long gameId){
+    public ResponseEntity<GameDto> fetchGameById(@PathVariable(name="id") Long gameId){
         return new ResponseEntity<>(gameService.fetchGameById(gameId), HttpStatus.OK);
     }
 
@@ -49,13 +50,13 @@ public class GameController {
     }
 
     @PostMapping ()
-    public ResponseEntity<Game> createGame(@RequestBody Game game){
-        return new ResponseEntity<>(gameService.createGame(game), HttpStatus.CREATED);
+    public ResponseEntity<GameDto> createGame(@RequestBody GameDto gameDto){
+        return new ResponseEntity<>(gameService.createGame(gameDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Game> updateGame(@RequestBody Game game, @PathVariable(name = "id") Long gameId){
-        return new ResponseEntity<>(gameService.updateGameById(gameId, game), HttpStatus.OK);
+    public ResponseEntity<GameDto> updateGame(@RequestBody GameDto gameDto, @PathVariable(name = "id") Long gameId){
+        return new ResponseEntity<>(gameService.updateGameById(gameId, gameDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
