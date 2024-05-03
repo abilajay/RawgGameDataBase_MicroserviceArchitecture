@@ -6,9 +6,33 @@ services:
     container_name: zipkin
     ports:
       - "9411:9411"
+    networks:
+      - GameDiscovery
+
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitMQ
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - GameDiscovery
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "9091:3306"
+    networks:
+      - GameDiscovery
+
+networks:
+  GameDiscovery:
+    driver: bridge
+
+volumes:
+  mysql_data:
