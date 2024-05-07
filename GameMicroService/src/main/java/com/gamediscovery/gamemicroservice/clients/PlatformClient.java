@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "Platform-Microservice")
+@FeignClient(name = "Platform-Microservice", url = "${platform-service.url}")
 public interface PlatformClient {
     @GetMapping("/platforms")
     List<Platform> createMultiplePlatform(@RequestBody List<Platform> platforms);
