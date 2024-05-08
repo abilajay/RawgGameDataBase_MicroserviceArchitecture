@@ -2,12 +2,14 @@ package com.gamediscovery.gamemicroservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Trailer {
 
     @Id
@@ -20,4 +22,6 @@ public class Trailer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private Game game;
+
+
 }

@@ -2,8 +2,7 @@ package com.gamediscovery.gamemicroservice.entity;
 
 import com.gamediscovery.gamemicroservice.external.Platform;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -14,6 +13,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Game implements Serializable {
 
     @Id

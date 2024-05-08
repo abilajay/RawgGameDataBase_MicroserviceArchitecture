@@ -2,12 +2,14 @@ package com.gamediscovery.gamemicroservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Setter
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Screenshot {
 
     @Id
@@ -19,4 +21,5 @@ public class Screenshot {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private Game game;
+
 }
