@@ -20,7 +20,7 @@ services:
 
   mysql:
     image: mysql:latest
-    container_name: mysql_db
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
@@ -29,6 +29,67 @@ services:
       - "9091:3306"
     networks:
       - GameDiscovery
+
+  publisher:
+    image: abilajay/publisher:latest
+    container_name: publisher
+    networks:
+      - GameDiscovery
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  platform:
+    image: abilajay/platform:latest
+    container_name: platform
+    networks:
+      - GameDiscovery
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  game:
+    image: abilajay/game:latest
+    container_name: game
+    networks:
+      - GameDiscovery
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  game-platform:
+    image: abilajay/game_platform:latest
+    container_name: game-platform
+    networks:
+      - GameDiscovery
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  genre:
+    image: abilajay/genre:latest
+    container_name: genre
+    networks:
+      - GameDiscovery
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+
+  eureka:
+    image: abilajay/eureka:latest
+    container_name: servicereg
+    networks:
+      - GameDiscovery
+    ports:
+      - "7070:8761"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  gateway:
+    image: abilajay/gateway:latest
+    container_name: gateway
+    networks:
+      - GameDiscovery
+    ports:
+      - "8086:8086"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
 
 networks:
   GameDiscovery:
